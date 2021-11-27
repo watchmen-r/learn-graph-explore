@@ -1,10 +1,8 @@
-package DisjointSet;
-
 class UnionFind {
 
     private int[] root;
 
-    // 初期化している
+    // コンストラクタ
     public UnionFind(int size) {
         root = new int[size];
         for(int i = 0; i < size; i++) {
