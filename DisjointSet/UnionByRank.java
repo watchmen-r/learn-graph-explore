@@ -1,48 +1,48 @@
-class UnionFind {
+// class UnionFind {
 
-    private int[] root;
-    // rank(その)をつけることで、findする際に遅くなる条件(全ての頂点が線で繋がる場合)
-    // の時に、速度低下を緩和することができる。
-    private int[] rank;
+//     private int[] root;
+//     // rank(その)をつけることで、findする際に遅くなる条件(全ての頂点が線で繋がる場合)
+//     // の時に、速度低下を緩和することができる。
+//     private int[] rank;
 
-    // コンストラクタ
-    public UnionFind(int size) {
-        root = new int[size];
-        rank = new int[size];
-        for(int i = 0; i < size; i++) {
-            root[i] = i;
-            rank[i] = 1;
-        }
-    }
+//     // コンストラクタ
+//     public UnionFind(int size) {
+//         root = new int[size];
+//         rank = new int[size];
+//         for(int i = 0; i < size; i++) {
+//             root[i] = i;
+//             rank[i] = 1;
+//         }
+//     }
 
-    public int find(int x) {
-        while(x != root[x]) {
-            x = root[x];
-        }
-        return x;
-    }
+//     public int find(int x) {
+//         while(x != root[x]) {
+//             x = root[x];
+//         }
+//         return x;
+//     }
 
-    // unionするときにその頂点がどの高さにいるのか記録する
-    public void union(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
+//     // unionするときにその頂点がどの高さにいるのか記録する
+//     public void union(int x, int y) {
+//         int rootX = find(x);
+//         int rootY = find(y);
 
-        if(rootX != rootY) {
-            if(rank[rootX] > rank[rootY]) {
-                root[rootY] = rootX;
-            } else if(rank[rootX] < rank[rootY]) {
-                root[rootX] = rootY;
-            } else {
-                root[rootY] = rootX;
-                rank[rootX] += 1;
-            }
-        }
-    }
+//         if(rootX != rootY) {
+//             if(rank[rootX] > rank[rootY]) {
+//                 root[rootY] = rootX;
+//             } else if(rank[rootX] < rank[rootY]) {
+//                 root[rootX] = rootY;
+//             } else {
+//                 root[rootY] = rootX;
+//                 rank[rootX] += 1;
+//             }
+//         }
+//     }
 
-    public boolean connected(int x, int y) {
-        return find(x) == find(y);
-    }
-}
+//     public boolean connected(int x, int y) {
+//         return find(x) == find(y);
+//     }
+// }
 
 public class UnionByRank {
     public static void main(String[] args) {
