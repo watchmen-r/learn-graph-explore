@@ -52,7 +52,7 @@ public class PathCompressionOptimization {
         uf.union(8, 9);
 
         // この時のrootを見てみる
-        uf.getRoot();
+        // uf.getRoot();
         System.out.println(uf.connected(1, 5)); // true
         System.out.println(uf.connected(5, 7)); // true
         System.out.println(uf.connected(4, 9)); // false
