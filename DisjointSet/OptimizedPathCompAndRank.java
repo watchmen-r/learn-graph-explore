@@ -77,7 +77,4 @@ public class OptimizedPathCompAndRank {
         uf.union(9, 4);
         System.out.println(uf.connected(4, 9)); // true
     }
-
-
-
 }
