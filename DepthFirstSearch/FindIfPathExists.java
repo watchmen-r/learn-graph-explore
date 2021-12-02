@@ -5,6 +5,10 @@ import java.util.Stack;
 
 public class FindIfPathExists {
 
+    public static void main(String[] args) {
+
+    }
+
     public boolean validPath(int n, int[][] edges, int start, int end) {
         if(n == 1) return true;
         
