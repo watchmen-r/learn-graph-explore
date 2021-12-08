@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class AllpathsFromSourceTarget {
 
@@ -8,35 +9,31 @@ public class AllpathsFromSourceTarget {
 
     }
 
-    // targetはn-1になる(文に0~n-1のpath求めろと書いてある)
-    static int target;
-    public static int[][] graphs;
-    static List<List<Integer>> answer;
-
-    static void dfs(int node, LinkedList<Integer> list) {
-        if(node == target) {
-            // deep copyしておく
-            answer.add(new ArrayList<Integer>(list));
-            return;
-        }
-
-        for(int next: graphs[node]) {
-            list.add(next);
-            dfs(next, list);
-            list.removeLast();
-        }
-    }
-
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        target = graph.length - 1;
-        graphs = graph;
-        answer = new ArrayList<>();
+        List<List<Integer>> answer = new ArrayList<>();
+        if(graph == null || graph.length == 0) {
+            return answer;
+        }
 
-        LinkedList<Integer> path = new  LinkedList<>();
-        path.addLast(0);
-        // 0からn-1までの経路を求める
-        dfs(0, path);
+        // ArrayDequeは両端キューFIFOでもLIFOでもできる
+        Queue<List<Integer>> queue = new ArrayDeque<>();
+        List<Integer> path = new ArrayList<>();
+        path.add(0);
+        queue.add(path);
 
+        while(!queue.isEmpty()) {
+            List<Integer> currentList = queue.poll();
+            int node = currentList.get(currentList.size() - 1);
+            for(int nextNode: graph[node]) {
+                List<Integer> tmpList = new ArrayList<>(currentList);
+                tmpList.add(nextNode);
+                if(nextNode == graph.length - 1) {
+                    answer.add(new ArrayList<>(tmpList));
+                } else {
+                    queue.add(new ArrayList<>(tmpList));
+                }
+            }
+        }
         return answer;
     }
 }
