@@ -23,7 +23,9 @@ public class AllpathsFromSourceTarget {
 
         while(!queue.isEmpty()) {
             List<Integer> currentList = queue.poll();
+            // list内の一番上が現在のノード、他の値はそこに行くまでのパス
             int node = currentList.get(currentList.size() - 1);
+            
             for(int nextNode: graph[node]) {
                 List<Integer> tmpList = new ArrayList<>(currentList);
                 tmpList.add(nextNode);
