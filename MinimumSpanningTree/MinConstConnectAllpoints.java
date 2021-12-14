@@ -1,8 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 class MinConstConnectAllpoints {
 
@@ -11,6 +7,7 @@ class MinConstConnectAllpoints {
         int point1;
         int point2;
         int cost;
+
         Edge(int point1, int point2, int cost) {
             this.point1 = point1;
             this.point2 = point2;
@@ -25,7 +22,7 @@ class MinConstConnectAllpoints {
         public UnionFind(int size) {
             root = new int[size];
             rank = new int[size];
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 root[i] = i;
                 rank[i] = 1;
             }
@@ -45,10 +42,10 @@ class MinConstConnectAllpoints {
         public void union(int x, int y) {
             int rootX = find(x);
             int rootY = find(y);
-            if(rootX != rootY) {
-                if(rank[rootX] > rank[rootY]) {
+            if (rootX != rootY) {
+                if (rank[rootX] > rank[rootY]) {
                     root[rootY] = rootX;
-                } else if(rank[rootY] < rank[rootY]) {
+                } else if (rank[rootY] < rank[rootY]) {
                     root[rootX] = rootY;
                 } else {
                     root[rootY] = rootX;
@@ -64,13 +61,40 @@ class MinConstConnectAllpoints {
     }
 
     public int minCostConnectPoints(int[][] points) {
-        if(points == null || points.length == 0) {
+        if (points == null || points.length == 0) {
             return 0;
         }
-        
+
         int size = points.length;
         PriorityQueue<Edge> pq = new PriorityQueue<>((x, y) -> x.cost - y.cost);
+        UnionFind uf = new UnionFind(size);
 
+        // １点ずつを結んだものを計算してpriorityqueueに入れる
+        for (int i = 0; i < size; i++) {
+            int[] coordinate1 = points[i];
 
+            for (int j = i + 1; j < size; j++) {
+                int[] coordinate2 = points[j];
+
+                int cost = Math.abs(coordinate1[0] - coordinate2[0]) + Math.abs(coordinate1[1] - coordinate2[1]);
+                Edge edge = new Edge(i, j, cost);
+                pq.add(edge);
+            }
+        }
+
+        int result = 0;
+        int count = size - 1;
+
+        while(!pq.isEmpty() && count > 0) {
+            Edge edge = pq.poll();
+            // まだ繋がっていないedgeを繋げる
+            if(!uf.connected(edge.point1, edge.point2)) {
+                uf.union(edge.point1, edge.point2);
+                result += edge.cost;
+                count--;
+            }
+        }
+
+        return result;
     }
 }
