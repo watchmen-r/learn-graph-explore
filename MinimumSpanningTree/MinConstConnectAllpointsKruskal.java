@@ -1,6 +1,6 @@
 import java.util.PriorityQueue;
 
-class MinConstConnectAllpoints {
+class MinConstConnectAllpointsKruskal {
 
     // データの持ち方に困ったらこうやって持つのはとてもいいかも
     class Edge {
